@@ -398,7 +398,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Disturbance-Observer-Study"><a href="#Disturbance-Observer-Study" class="headerlink" title="Disturbance Observer Study"></a>Disturbance Observer Study</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>近来笔者在完成本科毕设，用到一些与干扰估计相关的知识，现在主要用到ESO(Extended State Observer)状态扩张观测器和NDO(Nolinear Disturbance Observer)非线性干扰观测器。  \<br>笔者需要观测的是一个二阶拉格朗日动力学系统，其形式为：</p>
+                <h2 id="Disturbance-Observer-Study"><a href="#Disturbance-Observer-Study" class="headerlink" title="Disturbance Observer Study"></a>Disturbance Observer Study</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>近来笔者在完成本科毕设，用到一些与干扰估计相关的知识，现在主要用到ESO(Extended State Observer)状态扩张观测器和NDO(Nolinear Disturbance Observer)非线性干扰观测器。<br>笔者需要观测的是一个二阶拉格朗日动力学系统，其形式为：</p>
 <script type="math/tex; mode=display">
 M(\zeta)\ddot{\zeta}+C(\zeta)\dot{\zeta}+G(\zeta)=\tau+d\tag{1}</script><h3 id="ESO-Extended-State-Observer"><a href="#ESO-Extended-State-Observer" class="headerlink" title="ESO(Extended State Observer)"></a>ESO(Extended State Observer)</h3><p>观测器形式为：</p>
 <script type="math/tex; mode=display">\left\{
@@ -432,7 +432,7 @@ sign(e)·\vert{e}\vert^{\alpha},\quad \vert{e}\vert\geq \delta\\
     \hat{d}=z+p(x)
 \end{array}
 \tag{4a}
-\right.</script><p>在笔者需要观测的二阶系统中，$f(x),g_{1}(x)和g_{2}(x)分别为:$</p>
+\right.</script><p>在笔者需要观测的二阶系统中，$f(x),g_{1}(x)和g_{2}(x)分别为:$$</p>
 <script type="math/tex; mode=display">
 \left\{ 
 \begin{array}{c}
@@ -440,8 +440,8 @@ sign(e)·\vert{e}\vert^{\alpha},\quad \vert{e}\vert\geq \delta\\
 0_{10} & I_{10}\\
 0_{10} & -M^{-1}C  \\
 \end{matrix}
-\\
-\right] \\ 
+\right] \\
+\\ 
     g_{1}(x)=g_{2}(x)=\left[\begin{matrix}
 0_{10} \\
 M^{-1}  \\
