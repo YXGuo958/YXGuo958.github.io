@@ -365,9 +365,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC%E6%97%A0%E4%BA%BA%E6%9C%BA/">
+                                <span class="chip bg-color">四旋翼无人机</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -404,9 +408,9 @@
 <p>笔者近来开始接触<a href="https://so.csdn.net/so/search?q=%E5%9B%9B%E6%97%8B%E7%BF%BC%E6%97%A0%E4%BA%BA%E6%9C%BA&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E5%9B%9B%E6%97%8B%E7%BF%BC%E6%97%A0%E4%BA%BA%E6%9C%BA&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;四旋翼无人机\&quot;}&quot;}" data-tit="四旋翼无人机" data-pretit="四旋翼无人机">四旋翼无人机</a>，学习过程中写了一份有关无人机动力学与控制的python代码，在此做一些记录和原理解释。</p> 
 <p>附上仓库地址：<a target="_blank" href="https://gitee.com/gyxGYX123/UAV_Guo" rel="nofollow noopener" title="四旋翼无人机仿真建模: 本仓库实现了四旋翼无人机的动力学仿真建模，并在此基础上完成了控制器的设计，包括串级PID、LQR、MPC等，实现了位置跟踪和路径规划。">四旋翼无人机仿真建模: 本仓库实现了四旋翼无人机的动力学仿真建模，并在此基础上完成了控制器的设计，包括串级PID、LQR、MPC等，实现了位置跟踪和路径规划。</a></p> 
 <p>总体框架与思路如图所示，四旋翼无人机的运动<span class="words-blog hl-git-1" data-tit="模型" data-pretit="模型">模型</span>可以简单的看作是十二个状态变量(位置、速度、角度、角速度各三个变量）随运动而发生改变的过程，运动学方程如下图右半部分所示。</p> 
-<p><img alt height="900" src="/.com//source/_posts/quad01/kuangjia.png" width="1200"></p> 
+<p><img alt height="900" src="/.gd//source/_posts/quad01/kuangjia.png" width="1200"></p> 
 <p>从框架讲起，作为一名飞行器控制专业的学生，四旋翼无人机在我眼中并不算是严格意义上的飞行器，我对其的理解更偏向于robotic，与固定翼相比，四旋翼的动力学模型更简单，我浅显的理解为依靠四个轴上的电机带动螺旋桨提供升力，通过调节电机转速制造升力差引起角度的偏转进而带动<a href="https://so.csdn.net/so/search?q=%E6%97%A0%E4%BA%BA%E6%9C%BA&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E6%97%A0%E4%BA%BA%E6%9C%BA&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;无人机\&quot;}&quot;}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E6%97%A0%E4%BA%BA%E6%9C%BA&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;无人机\&quot;}&quot;}" data-tit="无人机" data-pretit="无人机">无人机</a>运动，因此就引出了四旋翼无人机常见的分级控制策略，分为角速度、姿态、速度和位置由内到外的四个环，详细内容将在下一篇文章展开。</p> 
-<p><img alt height="900" src="/.com//source/_posts/quad01/dongli.png" width="1200"></p> 
+<p><img alt height="900" src="/.gd//source/_posts/quad01/dongli.png" width="1200"></p> 
 <p>笔者构建的动力学模型分为上图的几个部分，无人机构型为x型，定义电机顺序如上图左上所示，电机作为执行器，近似看作一个一阶延迟环节，控制<span class="edu-hl hl hl-1" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;word\&quot;:\&quot;分配器\&quot;}&quot;}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;word\&quot;:\&quot;分配器\&quot;}&quot;}" data-tit="分配器" data-pretit="分配器">分配器</span>由升力和力矩在四轴上的分解和合成计算得出。</p> 
 <p>选取四阶龙格库塔法进行状态更新，由此可以开始编写程序了：</p> 
 <p>common_function：</p> 
@@ -478,7 +482,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%9B%9B%E6%97%8B%E7%BF%BC%E6%97%A0%E4%BA%BA%E6%9C%BA/">
+                                    <span class="chip bg-color">四旋翼无人机</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
