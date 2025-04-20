@@ -408,7 +408,55 @@
 <h4 id="前言">前言</h4>
 <p>近来笔者在完成本科毕设，用到一些与机械臂相关的知识，最近整理一下，主要分为正向运动学推力和逆向运动学分配两部分，本文先记录一下正向运动学的学习，记录了DH参数法和旋量法两种方法。本文所用的机械臂结构如下： </p>
 <h4 id="dh参数法">DH参数法</h4>
-<p>D-H参数法按照设定规则为每个连杆固连了一个坐标系，之后就可以方便的描述一个连杆坐标系到相邻的下一个连杆坐标系的转换关系。实质就是把相邻坐标系的转换分解为了若干个步骤，每个步骤均只有一个参量。这几个步骤对应变换的组合就完成了相邻坐标系的变换。  记录本机械臂DH参数表如下: | Joint | d(mm) | θ(°) | a(mm)|α(°)| | :— | :—-: | :—: |:—:|:—:| | 1 | 77 | q1 |0|-90| | 2 | 0 | q2-90|128|0| | 3 | 0 | 90 |24|0| | 4 | 0 | q3 |124|0| | 5 | 0 | q4 |126|90|</p>
+<p>D-H参数法按照设定规则为每个连杆固连了一个坐标系，之后就可以方便的描述一个连杆坐标系到相邻的下一个连杆坐标系的转换关系。实质就是把相邻坐标系的转换分解为了若干个步骤，每个步骤均只有一个参量。这几个步骤对应变换的组合就完成了相邻坐标系的变换。  记录本机械臂DH参数表如下:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Joint</th>
+<th style="text-align: center;">d(mm)</th>
+<th style="text-align: center;">θ(°)</th>
+<th style="text-align: center;">a(mm)</th>
+<th style="text-align: center;">α(°)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">q1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">-90</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">q2-90</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">q3</td>
+<td style="text-align: center;">124</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">q4</td>
+<td style="text-align: center;">126</td>
+<td style="text-align: center;">90</td>
+</tr>
+</tbody>
+</table>
 <p>a是两个转轴之间的距离（Z轴），异面直线公垂线的长度，也就是连杆的长度，对于旋转关节是固定值<br>
 α是两个转轴之间的夹角<br>
 d是两个公垂线在同一个转轴上的交点之间的距离，实际上两个坐标轴，其中一个X轴转动θ角后与另一个X轴平行，两个X轴之间的距离 θ是两个公垂线之间的夹角（两个坐标系X轴的夹角），也就是转轴（关节）转动的角度。</p>
