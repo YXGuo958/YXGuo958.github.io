@@ -469,7 +469,10 @@ $$</span> 最终得到其角加速度分配量： <span class="math display">$$
 \ddot{q}=J_A^{+}(q)(\ddot{x}_d+K_D\dot{e}+K_Pe-\dot{J}_A(q,\dot{q})\dot{q})+(I_n-J_A^{+}J_A)\ddot{q_0}
 $$</span> 使得等效系统： <span class="math display">$$
 \ddot{e}+K_D\dot{e}+K_Pe=0
-$$</span> 其结构如下： <img src="/2025/04/27/IK/Second_Order_block.png" title="Second Order IK" alt="二阶逆运动学"> ### 后续补充 #### 优化方法 根据需要执行的任务构建优化函数，并使用梯度下降或其它的优化算法进行求解，将求解得到的量带入逆运动学算法中得到分配量。 #### 学习方法 通过数据驱动的方法得到分配量。</p>
+$$</span> 其结构如下： <img src="/2025/04/27/IK/Second_Order_block.png" title="Second Order IK" alt="二阶逆运动学"></p>
+<h3 id="后续补充">后续补充</h3>
+<h4 id="优化方法">优化方法</h4>
+<p>根据需要执行的任务构建优化函数，并使用梯度下降或其它的优化算法进行求解，将求解得到的量带入逆运动学算法中得到分配量。 #### 学习方法 通过数据驱动的方法得到分配量。</p>
 <h3 id="参考文献">参考文献</h3>
 <p>[1]Siciliano B. Robotics: modelling, planning and control[M]. London: Springer, 2009: Chapters 3, 7, and 8.</p>
 
