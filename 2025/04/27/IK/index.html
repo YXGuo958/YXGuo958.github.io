@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="机械臂运动学笔记(2)-逆向运动学, 郭昱鑫的个人主页">
-    <meta name="description" content="Manipulator Inverse kinematics Study前言近来笔者在完成本科毕设，用到一些与机械臂相关的知识，最近整理一下，主要分为正向运动学推力和逆向运动学分配两部分。本文主要记录逆向运动学的学习，关注IK问题的求解算法">
+    <meta name="description" content="Manipulator Inverse kinematics Study
+前言
+近来笔者在完成本科毕设，用到一些与机械臂相关的知识，最近整理一下，主要分为正向运动学推力和逆向运动学分配两部分。本文主要记录逆向运动学的学习，关注IK问题的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -402,74 +404,74 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Manipulator-Inverse-kinematics-Study"><a href="#Manipulator-Inverse-kinematics-Study" class="headerlink" title="Manipulator Inverse kinematics Study"></a>Manipulator Inverse kinematics Study</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>近来笔者在完成本科毕设，用到一些与机械臂相关的知识，最近整理一下，主要分为正向运动学推力和逆向运动学分配两部分。本文主要记录逆向运动学的学习，关注IK问题的求解算法。IK问题的基础结构如下：<br><img src="/2025/04/27/IK/IK_block.png" alt="IK问题求解框架" title="Inverse Kinematics"></p>
-<h3 id="一阶逆运动学算法"><a href="#一阶逆运动学算法" class="headerlink" title="一阶逆运动学算法"></a>一阶逆运动学算法</h3><p>一阶算法允许在末端执行器处根据位置和方向指定的运动轨迹反转为等效的关节位置和速度</p>
-<h4 id="雅可比逆解法"><a href="#雅可比逆解法" class="headerlink" title="雅可比逆解法"></a>雅可比逆解法</h4><p>选择关节角速度：</p>
-<script type="math/tex; mode=display">\left\{
+                <h2 id="manipulator-inverse-kinematics-study">Manipulator Inverse kinematics Study</h2>
+<h3 id="前言">前言</h3>
+<p>近来笔者在完成本科毕设，用到一些与机械臂相关的知识，最近整理一下，主要分为正向运动学推力和逆向运动学分配两部分。本文主要记录逆向运动学的学习，关注IK问题的求解算法。IK问题的基础结构如下： <img src="/2025/04/27/IK/IK_block.png" title="Inverse Kinematics" alt="IK问题求解框架"></p>
+<h3 id="一阶逆运动学算法">一阶逆运动学算法</h3>
+<p>一阶算法允许在末端执行器处根据位置和方向指定的运动轨迹反转为等效的关节位置和速度 #### 雅可比逆解法 选择关节角速度： <span class="math display">$$\left\{
 \begin{array}{c}
    \dot{q}=J_A^{-1}(q)(\dot{x_d}+Ke,J_A 是方阵且非奇异\\
     \dot{q}=J_A^+(\dot{x_d}+Ke)+(I_n-J_A^+J_A)\dot{q_0},机械臂有冗余自由度\\
 \end{array}
 \tag{1a}
-\right.</script><p>使得等效线性系统：</p>
-<script type="math/tex; mode=display">
+\right.$$</span> 使得等效线性系统： <span class="math display">$$
 \dot{e}+Ke=0
-\tag{1b}</script><p>若K是正定的（通常是对角线）矩阵，则系统(1b)是渐近稳定的。误差沿轨迹趋于零，收敛速率取决于矩阵 K 的特征值;K特征值越大，收敛速度越快。由于该方案实际上是作为离散时间系统实现的，因此可以合理地预测特征值存在上限;根据采样时间的不同，最大特征值 K 将有一个限制，在该限制下，可以保证误差系统的渐近稳定性。此方案结构如下：<br><img src="/2025/04/27/IK/JacobianInverse_block.png" alt="雅可比逆解法" title="Jacobian Inverse"><br>这种方法结构很简单，但只有在不需要太快的运动或快速加速时才能产生令人满意的性能</p>
-<h4 id="雅可比转置法"><a href="#雅可比转置法" class="headerlink" title="雅可比转置法"></a>雅可比转置法</h4><p>选择李雅普诺夫函数：</p>
-<script type="math/tex; mode=display">
+\tag{1b}
+$$</span> 若K是正定的（通常是对角线）矩阵，则系统(1b)是渐近稳定的。误差沿轨迹趋于零，收敛速率取决于矩阵 K 的特征值;K特征值越大，收敛速度越快。由于该方案实际上是作为离散时间系统实现的，因此可以合理地预测特征值存在上限;根据采样时间的不同，最大特征值 K 将有一个限制，在该限制下，可以保证误差系统的渐近稳定性。此方案结构如下： <img src="/2025/04/27/IK/JacobianInverse_block.png" title="Jacobian Inverse" alt="雅可比逆解法"> 这种方法结构很简单，但只有在不需要太快的运动或快速加速时才能产生令人满意的性能 #### 雅可比转置法 选择李雅普诺夫函数： <span class="math display">$$
 V(e)=\frac{1}{2}e^TKe
-\tag{2a}</script><p>对(2a)求导得：</p>
-<script type="math/tex; mode=display">
+\tag{2a}
+$$</span> 对(2a)求导得： <span class="math display">$$
 \dot{V}=e^TK\dot{x}_d-e^TK\dot{x}_e
-\tag{2b}</script><p>即</p>
-<script type="math/tex; mode=display">
+\tag{2b}
+$$</span> 即 <span class="math display">$$
 \dot{V}=e^TK\dot{x}_d-e^TJ_A(q)\dot{q}
-\tag{2c}</script><p>因此选择关节角速度：</p>
-<script type="math/tex; mode=display">
+\tag{2c}
+$$</span> 因此选择关节角速度： <span class="math display">$$
 \dot{q}=J_A^T(q)Ke
-\tag{3}</script><p>使得：</p>
-<script type="math/tex; mode=display">
+\tag{3}
+$$</span> 使得： <span class="math display">$$
 \dot{V}=e^TK\dot{x}_d-e^TKJ_A(q)J_A^T(q)Ke
-\tag{2d}</script><p>考虑常数期望值的情况下，系统是渐近稳定的；仅有当分配的末端执行器位置实际上无法从当前配置中到达时，才会出现半负定的情况。此方案结构如下：<br><img src="/2025/04/27/IK/JacobianTrans_block.png" alt="雅可比转置法" title="Jacobian Trans"><br>该算法提供了一种计算高效的逆运动学方法，也可用于穿越运动奇点的路径。</p>
-<h4 id="方向选择"><a href="#方向选择" class="headerlink" title="方向选择"></a>方向选择</h4><p>以上两种逆运动学算法都使用了解析雅可比矩阵，因为它们对操作空间中定义的误差变量（位置和方向）进行操纵，而实际中需要考虑方向的参考坐标系来决定方向部分的分配量，下面不加证明地给出各种参考系下的模式，以雅可比逆解法为例：<br>当选择欧拉角坐标系表示时，关节角速度的选择为：</p>
-<script type="math/tex; mode=display">
+\tag{2d}
+$$</span> 考虑常数期望值的情况下，系统是渐近稳定的；仅有当分配的末端执行器位置实际上无法从当前配置中到达时，才会出现半负定的情况。此方案结构如下： <img src="/2025/04/27/IK/JacobianTrans_block.png" title="Jacobian Trans" alt="雅可比转置法"> 该算法提供了一种计算高效的逆运动学方法，也可用于穿越运动奇点的路径。 #### 方向选择 以上两种逆运动学算法都使用了解析雅可比矩阵，因为它们对操作空间中定义的误差变量（位置和方向）进行操纵，而实际中需要考虑方向的参考坐标系来决定方向部分的分配量，下面不加证明地给出各种参考系下的模式，以雅可比逆解法为例：<br>
+当选择欧拉角坐标系表示时，关节角速度的选择为： <span class="math display">$$
 \dot{q}=J^{-1}(q)\left[\begin{matrix}
 \dot{p}_d+K_Pe_P\\
 \dot{\phi}_d+K_Oe_O \\
 \end{matrix}
 \right] \\
-\tag{4a}</script><p>当选择体坐标系的角度表示时，关节角速度的选择为：</p>
-<script type="math/tex; mode=display">
+\tag{4a}
+$$</span> 当选择体坐标系的角度表示时，关节角速度的选择为： <span class="math display">$$
 \dot{q}=J^{-1}(q)\left[\begin{matrix}
 \dot{p}_d+K_Pe_P\\
 L^{-1}(L^Tw_d+K_Oe_O) \\
 \end{matrix}
 \right] \\
-\tag{4b}</script><p>其中：</p>
-<script type="math/tex; mode=display">
+\tag{4b}
+$$</span> 其中： <span class="math display">$$
 L=-\frac{1}{2}(S(n_d)S(n_e)+S(s_d)S(s_e)+S(a_d)S(a_e))\\
 R_d=[n_d ;s_d;a_d]\\
-R_e=[n_e ;s_e; a_e]</script><p>R表示旋转矩阵<br>当选择单位四元数表示时，关节角速度的选择为：</p>
-<script type="math/tex; mode=display">
+R_e=[n_e ;s_e; a_e]
+$$</span> R表示旋转矩阵<br>
+当选择单位四元数表示时，关节角速度的选择为： <span class="math display">$$
 \dot{q}=J^{-1}(q)\left[\begin{matrix}
 \dot{p}_d+K_Pe_P\\
 \omega_d+K_Oe_O \\
 \end{matrix}
 \right] \\
-\tag{4c}</script><h3 id="二阶逆运动学算法"><a href="#二阶逆运动学算法" class="headerlink" title="二阶逆运动学算法"></a>二阶逆运动学算法</h3><p>出于控制目的，可能需要反转以位置、速度和加速度指定的运动轨迹。另一方面，机械臂本质上是一个二阶机械系统，因此考虑二阶逆运动学算法，对微分运动学方程的时间进行微分：</p>
-<script type="math/tex; mode=display">
-\ddot{x}_e=J_A(q)\ddot{q}+\dot{J}_A(q,\dot{q})\dot{q}</script><p>整理得：</p>
-<script type="math/tex; mode=display">
-\ddot{q}=J_A^{+}(\ddot{x}_e-\dot{J}_A(q,\dot{q})\dot{q})</script><p>因此：</p>
-<script type="math/tex; mode=display">
-\ddot{e}=\ddot{x}_d-\ddot{x_e}=\ddot{x}_d-J_A(q)\ddot{q}-\dot{J}(q,\dot{q})\dot{q}</script><p>最终得到其角加速度分配量：</p>
-<script type="math/tex; mode=display">
-\ddot{q}=J_A^{+}(q)(\ddot{x}_d+K_D\dot{e}+K_Pe-\dot{J}_A(q,\dot{q})\dot{q})+(I_n-J_A^{+}J_A)\ddot{q_0}</script><p>使得等效系统：</p>
-<script type="math/tex; mode=display">
-\ddot{e}+K_D\dot{e}+K_Pe=0</script><p>其结构如下：<br><img src="/2025/04/27/IK/Second_Order_block.pngg" alt="雅可比转置法" title="Jacobian Trans"></p>
-<h3 id="后续补充"><a href="#后续补充" class="headerlink" title="后续补充"></a>后续补充</h3><h4 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h4><p>根据需要执行的任务构建优化函数，并使用梯度下降或其它的优化算法进行求解，将求解得到的量带入逆运动学算法中得到分配量。</p>
-<h4 id="学习方法"><a href="#学习方法" class="headerlink" title="学习方法"></a>学习方法</h4><p>通过数据驱动的方法得到分配量。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1]Siciliano B. Robotics: modelling, planning and control[M]. London: Springer, 2009: Chapters 3, 7, and 8.</p>
+\tag{4c}
+$$</span> ### 二阶逆运动学算法 出于控制目的，可能需要反转以位置、速度和加速度指定的运动轨迹。另一方面，机械臂本质上是一个二阶机械系统，因此考虑二阶逆运动学算法，对微分运动学方程的时间进行微分： <span class="math display">$$
+\ddot{x}_e=J_A(q)\ddot{q}+\dot{J}_A(q,\dot{q})\dot{q}
+$$</span> 整理得： <span class="math display">$$
+\ddot{q}=J_A^{+}(\ddot{x}_e-\dot{J}_A(q,\dot{q})\dot{q})
+$$</span> 因此： <span class="math display">$$
+\ddot{e}=\ddot{x}_d-\ddot{x_e}=\ddot{x}_d-J_A(q)\ddot{q}-\dot{J}(q,\dot{q})\dot{q}
+$$</span> 最终得到其角加速度分配量： <span class="math display">$$
+\ddot{q}=J_A^{+}(q)(\ddot{x}_d+K_D\dot{e}+K_Pe-\dot{J}_A(q,\dot{q})\dot{q})+(I_n-J_A^{+}J_A)\ddot{q_0}
+$$</span> 使得等效系统： <span class="math display">$$
+\ddot{e}+K_D\dot{e}+K_Pe=0
+$$</span> 其结构如下： <img src="/2025/04/27/IK/Second_Order_block.png" title="Second Order IK" alt="二阶逆运动学"> ### 后续补充 #### 优化方法 根据需要执行的任务构建优化函数，并使用梯度下降或其它的优化算法进行求解，将求解得到的量带入逆运动学算法中得到分配量。 #### 学习方法 通过数据驱动的方法得到分配量。</p>
+<h3 id="参考文献">参考文献</h3>
+<p>[1]Siciliano B. Robotics: modelling, planning and control[M]. London: Springer, 2009: Chapters 3, 7, and 8.</p>
 
                 
             </div>
